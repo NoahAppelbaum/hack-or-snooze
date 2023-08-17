@@ -54,6 +54,7 @@ function putStoriesOnPage() {
 
 /** Creates new story on submit form submission */
 function submitNewStory() {
+  console.debug("submitNewStory");
 
   const author = $("#story-author").val();
   const title = $("#story-title").val();

@@ -74,6 +74,7 @@ class StoryList {
    */
 
   async addStory(user, newStory) {
+    console.debug("addStory");
 
     //make the api request
     const response = await fetch(
