@@ -25,7 +25,7 @@ class Story {
 
   getHostName() {
     let hostname = this.url.slice(this.url.indexOf(':') + 3);
-    if(hostname.indexOf('/') === -1) return hostname;
+    if (hostname.indexOf('/') === -1) return hostname;
     return hostname.slice(0, hostname.indexOf('/'));
   }
 }
@@ -94,6 +94,7 @@ class StoryList {
     const postedStoryData = await response.json();
 
     const { storyId, title, author, url, username, createdAt } = postedStoryData;
+    //TODO: store this and unshift it to stories array; then return--
     return new Story({ storyId, title, author, url, username, createdAt });
   }
 }

@@ -62,6 +62,10 @@ async function submitNewStory(evt) {
   const url = $("#story-url").val();
 
   await storyList.addStory(currentUser, { author, title, url });
+  //TODO: fix StoryList.addStory to not need this next line,
+  //      then change to update with just the new story (prepend)
+  //      (maybe adding this story and re-showing stories should be a
+  //        separate function?)
   storyList = await StoryList.getStories();
   putStoriesOnPage();
   document.getElementById("story-form").reset();
