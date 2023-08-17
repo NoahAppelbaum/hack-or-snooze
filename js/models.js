@@ -95,7 +95,10 @@ class StoryList {
 
     const { storyId, title, author, url, username, createdAt } = postedStoryData;
     //TODO: store this and unshift it to stories array; then return--
-    return new Story({ storyId, title, author, url, username, createdAt });
+    const createdStory = new Story({ storyId, title, author, url, username, createdAt });
+    this.stories.unshift(createdStory);
+    this.stories.pop();
+    return createdStory;
   }
 }
 
