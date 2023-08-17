@@ -73,8 +73,6 @@ class StoryList {
    * Returns the new Story instance
    */
 
-  //TODO: make sure this is returning appropriately (and that StoryList
-  //is getting updated)
   async addStory(user, newStory) {
 
     //make the api request
@@ -97,9 +95,7 @@ class StoryList {
     //pulling key/values from response data
     const { storyId, title, author, url, username, createdAt } = postedStoryData;
     //make a new story instance, and add to story list
-    const postedStory = new Story({ storyId, title, author, url, username, createdAt });
-    return postedStory;
-    // this.stories.push(postedStory);
+    return new Story({ storyId, title, author, url, username, createdAt });
   }
 }
 
