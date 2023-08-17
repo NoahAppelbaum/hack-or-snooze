@@ -53,16 +53,17 @@ function putStoriesOnPage() {
 
 
 /** Creates new story on submit form submission */
-function submitNewStory() {
+async function submitNewStory(evt) {
+  evt.preventDefault();
   console.debug("submitNewStory");
 
   const author = $("#story-author").val();
   const title = $("#story-title").val();
   const url = $("#story-url").val();
 
-
-  //FIXME:if you put a breakpoint on line 66... this works??
-  storyList.addStory(currentUser, { author, title, url });
+  //FIXME: show created story after form submission
+  await storyList.addStory(currentUser, { author, title, url });
+  await putStoriesOnPage();
 }
 
 $("#story-form").on("submit", submitNewStory);
