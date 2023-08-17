@@ -62,9 +62,10 @@ async function submitNewStory(evt) {
   const url = $("#story-url").val();
 
   await storyList.addStory(currentUser, { author, title, url });
-  //FIXME: Future optimization planned...
-  //      show most recently created story after form submission
+  storyList = await StoryList.getStories();
   putStoriesOnPage();
+  document.getElementById("story-form").reset();
+
 }
 
 $("#story-form").on("submit", submitNewStory);
