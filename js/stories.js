@@ -50,3 +50,16 @@ function putStoriesOnPage() {
 
   $allStoriesList.show();
 }
+
+
+/** Creates new story on submit form submission */
+function submitNewStory() {
+
+  const author = $("#story-author").val();
+  const title = $("#story-title").val();
+  const url = $("#story-url").val();
+
+  storyList.addStory(currentUser, { author, title, url });
+}
+
+$("#story-form").on("submit", submitNewStory);
