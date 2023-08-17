@@ -89,12 +89,9 @@ class StoryList {
         )
       }
     );
-    //process the response
     const postedStoryData = await response.json();
-    //make an object of arguments to pass to a new story,
-    //pulling key/values from response data
+
     const { storyId, title, author, url, username, createdAt } = postedStoryData;
-    //make a new story instance, and add to story list
     return new Story({ storyId, title, author, url, username, createdAt });
   }
 }
