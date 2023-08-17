@@ -61,7 +61,7 @@ function submitNewStory() {
   const url = $("#story-url").val();
 
 
-  //FIXME:if you put breakpoints on the next two lines... this works??
+  //FIXME:if you put a breakpoint on line 66... this works??
   storyList.addStory(currentUser, { author, title, url });
 }
 
