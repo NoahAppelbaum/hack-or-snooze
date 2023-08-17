@@ -68,13 +68,38 @@ class StoryList {
 
   /** Adds story data to API, makes a Story instance, adds it to story list.
    * - user - the current instance of User who will post the story
-   * - obj of {title, author, url}
+   * - story - obj of {title, author, url}
    *
    * Returns the new Story instance
    */
 
-  async addStory( /* user, newStory */) {
-    // UNIMPLEMENTED: complete this function!
+  //TODO: make sure this is returning appropriately (and that StoryList
+  //is getting updated)
+  async addStory(user, newStory) {
+
+    //make the api request
+    const response = await fetch(
+      "https://hack-or-snooze-v3.herokuapp.com/stories",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(
+          {
+            token: user.loginToken,
+            story: newStory
+          }
+        )
+      }
+    );
+    //process the response
+    const postedStoryData = await response.json();
+    //make an object of arguments to pass to a new story,
+    //pulling key/values from response data
+    const { storyId, title, author, url, username, createdAt } = postedStoryData;
+    //make a new story instance, and add to story list
+    const postedStory = new Story({ storyId, title, author, url, username, createdAt });
+    return postedStory;
+    // this.stories.push(postedStory);
   }
 }
 
@@ -89,14 +114,14 @@ class User {
    *   - token
    */
 
-  constructor({
+  constructor({ //parameters:
     username,
     name,
     createdAt,
     favorites = [],
     ownStories = []
   },
-    token) {
+    token) { //functionality:
     this.username = username;
     this.name = name;
     this.createdAt = createdAt;
