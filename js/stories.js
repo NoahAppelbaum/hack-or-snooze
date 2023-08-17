@@ -65,7 +65,6 @@ async function submitNewStory(evt) {
   //FIXME: Future optimization planned...
   //      show most recently created story after form submission
   putStoriesOnPage();
-  debugger;
 }
 
 $("#story-form").on("submit", submitNewStory);
