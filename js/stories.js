@@ -100,7 +100,7 @@ function prependStory(story) {
 }
 
 
-/** Puts current user's favorited stories on page */
+/** Displays current user's favorited stories on page */
 function putFavoritesOnPage() {
   console.debug("putFavoritesOnPage");
 
