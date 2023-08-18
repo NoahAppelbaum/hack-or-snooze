@@ -259,7 +259,7 @@ class User {
         body: JSON.stringify({ token: this.loginToken })
       });
     //update local User instance's favorites property
-    deletedStoryIndex = this.favorites.indexOf(story);
+    const deletedStoryIndex = this.favorites.indexOf(story);
     this.favorites.splice(deletedStoryIndex, 1);
 
   }
