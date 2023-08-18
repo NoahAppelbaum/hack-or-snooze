@@ -92,11 +92,10 @@ class StoryList {
       }
     );
     const postedStoryData = await response.json();
+    const createdStory = new Story(postedStoryData.story);
 
-    const { storyId, title, author, url, username, createdAt } = postedStoryData;
-    //TODO: store this and unshift it to stories array; then return--
-    const createdStory = new Story({ storyId, title, author, url, username, createdAt });
     this.stories.unshift(createdStory);
+    // keep storyList to constant number of stories
     this.stories.pop();
     return createdStory;
   }

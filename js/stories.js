@@ -20,7 +20,7 @@ async function getAndShowStoriesOnStart() {
  */
 
 function generateStoryMarkup(story) {
-  // console.debug("generateStoryMarkup", story);
+  console.debug("generateStoryMarkup", story);
 
   const hostName = story.getHostName();
   return $(`
@@ -61,15 +61,17 @@ async function submitNewStory(evt) {
   const title = $("#story-title").val();
   const url = $("#story-url").val();
 
-  await storyList.addStory(currentUser, { author, title, url });
-  //TODO: fix StoryList.addStory to not need this next line,
-  //      then change to update with just the new story (prepend)
-  //      (maybe adding this story and re-showing stories should be a
-  //        separate function?)
-  storyList = await StoryList.getStories();
-  putStoriesOnPage();
+  const createdStory = await storyList.addStory(currentUser, { author, title, url });
+  prependStory(createdStory);
   document.getElementById("story-form").reset();
-
 }
 
 $("#story-form").on("submit", submitNewStory);
+
+/** Adds story to top of feed. */
+function prependStory(story){
+  const $story = generateStoryMarkup(story);
+  $allStoriesList.prepend($story);
+  hidePageComponents();
+  $allStoriesList.show();
+}
