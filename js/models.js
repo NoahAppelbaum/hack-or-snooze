@@ -21,6 +21,14 @@ class Story {
     this.createdAt = createdAt;
   }
 
+  /** Retrieves story from database with story id */
+  static async getStoryById(id){
+    const response = await fetch(`${BASE_URL}/stories/${id}`);
+    const { story } = await response.json();
+    
+    return story;
+  }
+
   /** Parses hostname out of URL and returns it. */
 
   getHostName() {
@@ -264,6 +272,9 @@ class User {
 
   }
 
-
+  /** Check if story is in user favorites*/
+  hasFavorite(story){
+  return this.favorites.some(item => item.storyId === story.storyId)
+  }
 
 }

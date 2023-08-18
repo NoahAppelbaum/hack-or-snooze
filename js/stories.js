@@ -25,6 +25,7 @@ function generateStoryMarkup(story) {
   const hostName = story.getHostName();
   return $(`
       <li id="${story.storyId}">
+        <i data-isFavorited="false" class="bi bi-star favorite-star">
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -34,6 +35,22 @@ function generateStoryMarkup(story) {
       </li>
     `);
 }
+
+/** */
+async function handleFavoriteClick(evt){
+  const $star = $(evt.target)
+  const storyId = $star.parent().attr("id");
+  const story = await Story.getStoryById(storyId);
+  if(currentUser.hasFavorite(story)){
+    currentUser.removeFavorite(story);
+    $star.toggleClass("bi-star bi-star-fill");
+  } else {
+    currentUser.addFavorite(story);
+    $star.toggleClass("bi-star bi-star-fill");
+  }
+}
+
+$allStoriesList.on("click", ".favorite-star", handleFavoriteClick);
 
 /** Gets list of stories from server, generates their HTML, and puts on page. */
 
