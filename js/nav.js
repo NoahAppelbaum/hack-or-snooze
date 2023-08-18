@@ -47,3 +47,12 @@ function updateNavOnLogin() {
   $navLogOut.show();
   $navUserProfile.text(`${currentUser.username}`).show();
 }
+
+/** Shows user's favorite stories on page  */
+function navFavoritesClick(evt){
+  evt.preventDefault();
+  hidePageComponents();
+  putFavoritesOnPage();
+}
+
+$navFavorites.on("click", navFavoritesClick);

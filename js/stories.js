@@ -20,7 +20,7 @@ async function getAndShowStoriesOnStart() {
  */
 
 function generateStoryMarkup(story) {
-  console.debug("generateStoryMarkup", story);
+  // console.debug("generateStoryMarkup", story);
 
   //set favorite-star status
   const starStyle = currentUser.hasFavorite(story) ? "bi-star-fill" : "bi-star";
@@ -43,7 +43,7 @@ function generateStoryMarkup(story) {
 /** Adds  a new story or removes an already-favorited story
  * from the current user's favorites list  */
 
-async function handleFavoriteClick(evt) {
+async function handleFavoriteStarClick(evt) {
   const $star = $(evt.target);
   const storyId = $star.parent().attr("id");
   const story = await Story.getStoryById(storyId);
@@ -56,7 +56,7 @@ async function handleFavoriteClick(evt) {
   }
 }
 
-$allStoriesList.on("click", ".favorite-star", handleFavoriteClick);
+$allStoriesList.on("click", ".favorite-star", handleFavoriteStarClick);
 
 /** Gets list of stories from server, generates their HTML, and puts on page. */
 

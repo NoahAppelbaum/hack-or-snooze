@@ -86,7 +86,7 @@ class StoryList {
 
     //make the api request
     const response = await fetch(
-      "https://hack-or-snooze-v3.herokuapp.com/stories",
+      `${BASE_URL}/stories`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -240,14 +240,18 @@ class User {
     const apiUrl =
       `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`;
 
-    await fetch(apiUrl,
+    const response = await fetch(apiUrl,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token: this.loginToken })
       });
+    
+    const storyData = await response.json();
+    const favoritedStory = new Story(storyData.user.favorites[0]);
+
     //update local User instance's favorites property
-    this.favorites.unshift(story);
+    this.favorites.unshift(favoritedStory);
 
   }
 
