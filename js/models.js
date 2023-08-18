@@ -23,6 +23,7 @@ class Story {
 
   /** Parses hostname out of URL and returns it. */
 
+  //TODO: URL class
   getHostName() {
     let hostname = this.url.slice(this.url.indexOf(':') + 3);
     if (hostname.indexOf('/') === -1) return hostname;

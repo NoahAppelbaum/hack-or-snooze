@@ -63,7 +63,7 @@ async function submitNewStory(evt) {
 
   const createdStory = await storyList.addStory(currentUser, { author, title, url });
   prependStory(createdStory);
-  document.getElementById("story-form").reset();
+  $storyForm.trigger("reset")
 }
 
 $("#story-form").on("submit", submitNewStory);
