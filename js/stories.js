@@ -47,12 +47,11 @@ async function handleFavoriteStarClick(evt) {
   const $star = $(evt.target);
   const storyId = $star.parent().attr("id");
   const story = await Story.getStoryById(storyId);
-
   if (currentUser.hasFavorite(story)) {
-    currentUser.removeFavorite(story);
+    await currentUser.removeFavorite(story);
     $star.toggleClass("bi-star bi-star-fill");
   } else {
-    currentUser.addFavorite(story);
+    await currentUser.addFavorite(story);
     $star.toggleClass("bi-star bi-star-fill");
   }
 }

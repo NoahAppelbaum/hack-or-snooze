@@ -251,7 +251,7 @@ class User {
     const favoritedStory = new Story(storyData.user.favorites[0]);
 
     //update local User instance's favorites property
-    this.favorites.unshift(favoritedStory);
+    this.favorites.unshift(story);
   }
 
 
@@ -270,6 +270,7 @@ class User {
         body: JSON.stringify({ token: this.loginToken })
       });
     //update local User instance's favorites property
+    //filter
     const deletedStoryIndex = this.favorites.indexOf(story);
     this.favorites.splice(deletedStoryIndex, 1);
 
