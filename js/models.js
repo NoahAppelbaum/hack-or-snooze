@@ -23,11 +23,9 @@ class Story {
 
   /** Parses hostname out of URL and returns it. */
 
-  //TODO: URL class
   getHostName() {
-    let hostname = this.url.slice(this.url.indexOf(':') + 3);
-    if (hostname.indexOf('/') === -1) return hostname;
-    return hostname.slice(0, hostname.indexOf('/'));
+    let url = new URL(this.url);
+    return url.hostname;
   }
 }
 
@@ -224,4 +222,25 @@ class User {
       return null;
     }
   }
+
+
+  /** Add a story to the user's favorite's list
+   * - story: story to add to user's favorites
+   */
+  async addFavorite(story) {
+
+    const postUrl =
+      `${BASE_URL}/users/${currentUser.username}/favorites/${story.storyId}`;
+
+    await fetch(postUrl,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: currentUser.loginToken })
+      });
+    //update local User instance's favorites property
+    currentUser.favorites.unshift(story);
+
+  }
+
 }
