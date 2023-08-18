@@ -22,10 +22,13 @@ async function getAndShowStoriesOnStart() {
 function generateStoryMarkup(story) {
   console.debug("generateStoryMarkup", story);
 
+  //set favorite-star status
+  const starStyle = currentUser.hasFavorite(story) ? "bi-star-fill" : "bi-star";
+
   const hostName = story.getHostName();
   return $(`
       <li id="${story.storyId}">
-        <i data-isFavorited="false" class="bi bi-star favorite-star">
+        <i class="bi favorite-star ${starStyle}"></i>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -36,12 +39,15 @@ function generateStoryMarkup(story) {
     `);
 }
 
-/** */
-async function handleFavoriteClick(evt){
-  const $star = $(evt.target)
+
+/** Adds  a new story or removes an already-favorited story
+ * from the current user's favorites list  */
+
+async function handleFavoriteClick(evt) {
+  const $star = $(evt.target);
   const storyId = $star.parent().attr("id");
   const story = await Story.getStoryById(storyId);
-  if(currentUser.hasFavorite(story)){
+  if (currentUser.hasFavorite(story)) {
     currentUser.removeFavorite(story);
     $star.toggleClass("bi-star bi-star-fill");
   } else {
@@ -80,13 +86,13 @@ async function submitNewStory(evt) {
 
   const createdStory = await storyList.addStory(currentUser, { author, title, url });
   prependStory(createdStory);
-  $storyForm.trigger("reset")
+  $storyForm.trigger("reset");
 }
 
 $("#story-form").on("submit", submitNewStory);
 
 /** Adds story to top of feed. */
-function prependStory(story){
+function prependStory(story) {
   const $story = generateStoryMarkup(story);
   $allStoriesList.prepend($story);
   hidePageComponents();

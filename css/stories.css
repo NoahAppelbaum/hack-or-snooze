@@ -37,3 +37,7 @@
 .story-user {
   display: block;
 }
+
+.favorite-star:hover{
+  cursor: pointer;
+}
