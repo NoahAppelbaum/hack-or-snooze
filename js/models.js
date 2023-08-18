@@ -229,18 +229,41 @@ class User {
    */
   async addFavorite(story) {
 
-    const postUrl =
-      `${BASE_URL}/users/${currentUser.username}/favorites/${story.storyId}`;
+    const apiUrl =
+      `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`;
 
-    await fetch(postUrl,
+    await fetch(apiUrl,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token: currentUser.loginToken })
+        body: JSON.stringify({ token: this.loginToken })
       });
     //update local User instance's favorites property
-    currentUser.favorites.unshift(story);
+    this.favorites.unshift(story);
 
   }
+
+
+  /** removes a story from the user's favorites list
+   * - story: story to remove from user's favorites
+  */
+  async removeFavorite(story) {
+
+    const apiUrl =
+      `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`;
+
+    await fetch(apiUrl,
+      {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: this.loginToken })
+      });
+    //update local User instance's favorites property
+    deletedStoryIndex = this.favorites.indexOf(story);
+    this.favorites.splice(deletedStoryIndex, 1);
+
+  }
+
+
 
 }
