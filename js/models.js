@@ -22,11 +22,11 @@ class Story {
   }
 
   /** Retrieves story from database with story id */
-  static async getStoryById(id){
+  static async getStoryById(id) {
     const response = await fetch(`${BASE_URL}/stories/${id}`);
     const { story } = await response.json();
-    
-    return story;
+
+    return new Story(story);
   }
 
   /** Parses hostname out of URL and returns it. */
@@ -240,15 +240,12 @@ class User {
     const apiUrl =
       `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`;
 
-    const response = await fetch(apiUrl,
+    await fetch(apiUrl,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token: this.loginToken })
       });
-    
-    const storyData = await response.json();
-    const favoritedStory = new Story(storyData.user.favorites[0]);
 
     //update local User instance's favorites property
     this.favorites.unshift(story);
@@ -271,14 +268,13 @@ class User {
       });
     //update local User instance's favorites property
     //filter
-    const deletedStoryIndex = this.favorites.indexOf(story);
-    this.favorites.splice(deletedStoryIndex, 1);
+    this.favorites = this.favorites.filter(item => item.storyId !== story.storyId);
 
   }
 
   /** Check if story is in user favorites*/
-  hasFavorite(story){
-    return this.favorites.some(item => item.storyId === story.storyId)
+  hasFavorite(story) {
+    return this.favorites.some(item => item.storyId === story.storyId);
   }
 
 }

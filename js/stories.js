@@ -23,20 +23,25 @@ function generateStoryMarkup(story) {
   console.debug("generateStoryMarkup");
 
   //set initial star icon state
-  const starStyle = currentUser.hasFavorite(story) ? "bi-star-fill" : "bi-star";
+  let starStyle;
+  if (currentUser) {
+    starStyle = currentUser.hasFavorite(story) ? "bi-star-fill" : "bi-star";
+  } else {
+    starStyle = "hidden";
+  }
 
   const hostName = story.getHostName();
   return $(`
-      <li id="${story.storyId}">
-        <i class="bi favorite-star ${starStyle}"></i>
-        <a href="${story.url}" target="a_blank" class="story-link">
-          ${story.title}
-        </a>
-        <small class="story-hostname">(${hostName})</small>
-        <small class="story-author">by ${story.author}</small>
-        <small class="story-user">posted by ${story.username}</small>
-      </li>
-    `);
+  <li id="${story.storyId}">
+  <i class="bi favorite-star ${starStyle}"></i>
+  <a href="${story.url}" target="a_blank" class="story-link">
+  ${story.title}
+  </a>
+  <small class="story-hostname">(${hostName})</small>
+  <small class="story-author">by ${story.author}</small>
+  <small class="story-user">posted by ${story.username}</small>
+  </li>
+  `);
 }
 
 

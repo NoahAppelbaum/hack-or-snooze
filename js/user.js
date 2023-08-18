@@ -110,7 +110,23 @@ function saveUserCredentialsInLocalStorage() {
 function updateUIOnUserLogin() {
   console.debug("updateUIOnUserLogin");
 
-  $allStoriesList.show();
-
+  //FIXME: this is illegal. But it works.
+  // $allStoriesList.show();
+  putStoriesOnPage();
+  // $(".favorite-stars").removeClass("hidden");
   updateNavOnLogin();
 }
+
+//TODO: WIP feature to accomodate legal version of above^
+/** Styles favoriting stars according to current user */
+
+// function redrawFavoriteStars() {
+//   $favoriteStars = $(".favorite-star");
+//   $favoriteStars.removeClass("hidden");
+
+//   for (const story of storyList.stories){
+
+//   }
+
+
+// }
