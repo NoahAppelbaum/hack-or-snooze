@@ -252,7 +252,6 @@ class User {
 
     //update local User instance's favorites property
     this.favorites.unshift(favoritedStory);
-
   }
 
 
@@ -278,7 +277,7 @@ class User {
 
   /** Check if story is in user favorites*/
   hasFavorite(story){
-  return this.favorites.some(item => item.storyId === story.storyId)
+    return this.favorites.some(item => item.storyId === story.storyId)
   }
 
 }

@@ -20,9 +20,9 @@ async function getAndShowStoriesOnStart() {
  */
 
 function generateStoryMarkup(story) {
-  // console.debug("generateStoryMarkup", story);
+  console.debug("generateStoryMarkup");
 
-  //set favorite-star status
+  //set initial star icon state
   const starStyle = currentUser.hasFavorite(story) ? "bi-star-fill" : "bi-star";
 
   const hostName = story.getHostName();
@@ -47,6 +47,7 @@ async function handleFavoriteStarClick(evt) {
   const $star = $(evt.target);
   const storyId = $star.parent().attr("id");
   const story = await Story.getStoryById(storyId);
+
   if (currentUser.hasFavorite(story)) {
     currentUser.removeFavorite(story);
     $star.toggleClass("bi-star bi-star-fill");
